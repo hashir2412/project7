@@ -23,5 +23,5 @@ class XSLT {
         DOMSource source = new DOMSource(document);
         StreamResult result = new StreamResult(System.out);
         transformer.transform(source, result);
-    }
+    } 
 }
