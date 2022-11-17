@@ -10,7 +10,7 @@ import java.net.URL;
 
 class XSLT {
     public static void main(String argv[]) throws Exception {
-        File stylesheet = new File("src\\xslt\\math.xsl");
+        File stylesheet = new File("xslt\\math.xsl");
         // File xmlfile = new File();
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         DocumentBuilder db = dbf.newDocumentBuilder();
@@ -21,7 +21,7 @@ class XSLT {
         TransformerFactory tf = TransformerFactory.newInstance();
         Transformer transformer = tf.newTransformer(stylesource);
         DOMSource source = new DOMSource(document);
-        StreamResult result = new StreamResult(System.out);
+        StreamResult result = new StreamResult(new File("xslt\\result.html"));
         transformer.transform(source, result);
     } 
 }

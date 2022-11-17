@@ -1,6 +1,7 @@
 // https://stackoverflow.com/questions/38207465/how-to-use-and-operator-in-xpath
 
 import java.net.URL;
+import java.util.HashSet;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -8,9 +9,16 @@ import javax.xml.xpath.*;
 import org.w3c.dom.*;
 
 class XPATH {
+    static HashSet<String> hash = new HashSet<>();
+
     static void print(Node e) {
-        if (e instanceof Text)
-            System.out.println(((Text) e).getData());
+        if (e instanceof Text) {
+            if(!hash.contains(((Text) e).getData())){
+                hash.add(((Text) e).getData());
+                System.out.println(((Text) e).getData());
+            }
+            
+        }
         else {
             NodeList c = e.getChildNodes();
             for (int k = 0; k < c.getLength(); k++)
@@ -35,12 +43,15 @@ class XPATH {
                 .parse((new URL("http://aiweb.cs.washington.edu/research/projects/xmltk/xmldata/data/courses/reed.xml"))
                         .openStream());
         System.out.println("Titles of all MATH courses that are taught in room LIB 204 are as follows:");
+        hash = new HashSet<>();
         eval("//course[subj='MATH' and place/building='LIB' and place/room='204']/title", doc);
         System.out.println("X--------------------------------X--------------------------------X");
         System.out.println("Instructor name who teaches MATH 412 are as follows:");
+        hash = new HashSet<>();
         eval("//course[subj='MATH' and crse='412']/instructor", doc);
         System.out.println("X--------------------------------X--------------------------------X");
         System.out.println("Titles of all courses taught by Wieting are as follows:");
+        hash = new HashSet<>();
         eval("//course[instructor='Wieting']/title", doc);
         System.out.println("X--------------------------------X--------------------------------X");
     }
